@@ -1,0 +1,146 @@
+{% extends "master.html" %}
+
+
+
+
+{% block content %}
+
+
+
+<div class="container mt-5" >
+
+
+<div class="row">
+
+
+
+<div class="col-8 p-5" style=" margin-right: 20px; ">
+
+    <form class="row g-3"  action="/orderconfirm/" method="post">
+{% csrf_token %}
+    <div class="col-md-6" >
+        <label for="ordername" class="form-label">Full Name</label>
+        <input type="text" class="form-control" id="ordername" name="ordername">
+      </div>
+
+      <div class="col-md-6">
+        <label for="phoneno" class="form-label">Phone Number</label>
+        <input type="number" class="form-control" id="phoneno" name="phoneno">
+      </div>
+
+      <div class="col-md-6">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" name="email">
+      </div>
+    
+      <div class="col-12">
+        <label for="address" class="form-label">Address</label>
+        <input type="text" class="form-control" id="address" name="address">
+      </div>
+    
+      <div class="col-md-6">
+        <label for="city" class="form-label">City</label>
+        <input type="text" class="form-control" id="city" name="city">
+      </div>
+      <div class="col-md-4">
+        <label for="state" class="form-label">State</label>
+        <input type="text" class="form-control" id="state" name="state">
+      </div>
+      <div class="col-md-2">
+        <label for="pincode" class="form-label">Pincode</label>
+        <input type="number" class="form-control" id="pincode" name="pincode" >
+      </div>
+
+      <div class="col-md-4">
+        <label for="total" class="form-label">total</label>
+        <input type="number" class="form-control" id="totalamount" name="totalamount" readonly >
+      </div>
+
+      <div class="col-12">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="gridCheck">
+          <label class="form-check-label" for="gridCheck">
+            Check me out
+          </label>
+        </div>
+      </div>
+      <div class="col-12">  
+    <div class="container justify-content-between">
+         
+        <input type="submit" class="btn btn-info" value="confirm to order" >
+        <a class="btn btn-success" href="/">Cancel</a>
+    </div>
+    </div>
+    </form>
+    </div>
+ 
+
+
+
+<div class="col p-5 rounded" style="border: 1px solid black; ">
+
+    <div class="row" >
+      <div class="col" style="font-weight:bold; font-size:20px;"> Product Name </div>
+      <div class="col" style="font-weight:bold; font-size:20px;"> Price </div>
+      
+    </div>
+
+    <br>
+    <br>
+
+    {% for n in cart %} 
+
+    <div class="row">
+
+    <div class="col">
+      <h6>{{n.productname}}</h6>
+    </div>
+
+    <div class="col">
+      <p >₹<span class="price">{{n.total}}</span></p>
+    </div>
+
+ 
+
+    </div>
+    {% endfor %}
+    <hr>
+ <div class="row">
+<div class="col "  style="font-weight:bold; font-size:15px;">Total Amount</div>
+ 
+<div class="col" >₹<span id="totalvalue">  </span></div>
+</div>
+    <script>
+
+      
+            let doo=0;
+            const prices=document.getElementsByClassName('price');
+            
+            for (let i of prices){
+                doo=doo+Number(i.innerHTML);
+
+            }
+            console.log(doo)
+  
+
+            document.getElementById("totalvalue").innerHTML=doo;
+            document.getElementById("totalamount").value=doo;
+
+         
+
+    </script>
+ 
+
+    
+</div>
+
+
+
+</div>
+</div>
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "master.html" %}
+
+
+{% block content %}
+<div class="container-fluid  mt-3" style=" color: rgb(16, 1, 1); height: 650px; ">
+    <h4>Products..</h4>
+
+<div class="container">
+    <div class="row row-cols-2 row-cols-md-4 g-4 mt-3">
+
+        {% for c in product %}     
+        
+        
+        <a href="/productdetails/{{c.id}}/" style="text-decoration: none;">
+
+            <div class="col">
+            <div class="card">
+            <img src="https://www.wallpapergap.com/cdn/24/391/coffee-cup-wallpaper-1562x945.jpg" class="card-img-top" alt=" ">
+            <div class="card-body">
+                <h3 class="card-title">{{c.name}}</h3>
+                <h5 class="card-text">{{c.price}}</h5>
+                <p class="card-text"> Our dark, Rich in flavour espresso balanced with steamed milk..</p>
+            </div>
+            </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+    <br>
+    <br>
+
+    <div class="container">
+        <a class="btn btn-success" href="/">Home</a>
+
+    </div>
+</div>
+{% endblock %}

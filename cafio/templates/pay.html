@@ -1,0 +1,202 @@
+{% extends "master.html" %}
+
+
+
+{% block content %}
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<div class="container mt-5" >
+    <div class="row">
+
+    <div class="col-9 p-5" style="border: 1xp solid black;">
+    <h4>Review And Order</h4>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col"  >
+            <h6>PAYMENT</h6>
+
+
+
+        </div>
+        <div class="col">
+            <h4>BILLING ADRESS</h6>
+            <h5>{{o.ordername}}</h5>
+            <h6>{{o.phoneno}}</h6>
+            <h6>{{o.email}}</h6>
+            <h6>{{o.address}}</h6>
+            <h6>{{o.city}},{{o.state}}</h6>
+             
+            <h6>{{o.pincode}}</h6>
+
+
+          
+
+            
+
+        </div>
+
+
+        <div class="row mt-5">
+            <div class="col">
+            
+             <h6>SHIPPING</h6>
+             <p style="font-size: small;">Standart</p>
+
+            </div>
+
+            <div class="col">
+                <h4>SHIPPING ADDRESS</h4>
+                <h5>{{o.ordername}}</h5>
+                <h6>{{o.phoneno}}</h6>
+                <h6>{{o.email}}</h6>
+                <h6>{{o.address}}</h6>
+                <h6>{{o.city}},{{o.state}}</h6>
+                <h6>{{o.pincode}}</h6>
+                
+            </div>
+        </div>
+
+         
+
+    </div>
+    </div>
+
+
+
+
+
+
+<div class="col-3 p-5 rounded h-50" style="border: 1px solid black; ">
+
+    <div class="row" >
+      <div class="col-12" style="font-weight:bold; font-size:20px;"> Total to Pay</div>
+      
+    </div>
+
+    <br>
+    <br>
+
+    <div class="row">
+        <div class="col-9 "  style="font-weight:bold; font-size:15px;">Order Amount</div>
+         
+        <div class="col-3" >₹<span class="fw-bold" id="ordervalue">{{o.tamount}}  </span></div>
+        </div>
+
+    
+        <div class="row">
+            <div class="col-9 "  style="font-weight:bold; font-size:15px;"> Tax (5%)</div>
+             
+            <div class="col-3" >₹<span id="taxvalue"> </span></div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-9 "  style="font-weight:bold; font-size:15px;"> Delivery Charge (5%)</div>
+             
+            <div class="col-3" >₹<span  id="deliveryvalue"> </span></div>
+        </div>
+
+        <hr>
+
+
+        
+        <div class="row">
+            <div class="col-7 "  style="font-weight:bold; font-size:15px;"> Total Amount :</div>
+             
+            <div class="col-5" >₹<span class="fw-bold text-success" id="grandtotal"> {{amount2}} </span></div>
+        </div>
+
+            
+
+        <hr>
+
+        <div class="container">
+
+             <button class="btn btn-success" id="rzp-button1">Pay ₹{{amount2}}</button>
+
+        </div>
+
+
+
+</div>
+ 
+
+    </div>
+
+</div>
+<script>
+            let ordervalue =Number(document.getElementById("ordervalue").innerHTML);
+            let taxtopay=0.05*ordervalue;
+            let deliverycharge=0.05*ordervalue;
+            document.getElementById("taxvalue").innerHTML=taxtopay;
+            document.getElementById("deliveryvalue").innerHTML=deliverycharge;
+            
+
+
+
+
+
+
+
+
+</script>
+<script>
+        var options = {
+            // "key": "{{ razorpay_key_id }}",
+            "key":"rzp_test_tZ7AVxNyICGhul",
+            "amount": "{{ amount }}",
+            // "currency": "{{ currency }}",
+            "currency": "INR",
+
+            "name": "My Site",
+            "description": "Test Transaction",
+            "order_id": "{{ order_id }}",
+            "handler": function (response){
+
+                window.location.href=`http://127.0.0.1:8000/purchased/${response.razorpay_payment_id}/${response.razorpay_order_id}/`
+                // alert("Payment successful! Razorpay Payment ID: " + response.razorpay_payment_id);
+                 
+            },
+            "theme": {
+                "color": "#3399cc"
+            }    
+        };
+        var rzp1 = new Razorpay(options);
+        
+       /* document.getElementById('rzp-button1').onclick = function(e){
+            rzp1.open();
+            e.preventDefault();
+        }*/
+  
+
+
+
+    
+  
+   // var rzp1 = new Razorpay(options);
+
+    // Attach event listener for failed payments
+    rzp1.on('payment.failed', function (response){
+        alert("Payment failed!\nReason: " + response.error.description);
+        
+        setTimeout(function(){ window.location.href=`http://127.0.0.1:8000/cart/`},2000)
+
+        // Optional: Redirect to a custom error page
+        // window.location.href = `/payment-failed/?reason=${encodeURIComponent(response.error.description)}`;
+    });
+
+    // Button click logic
+    var rzpButton = document.getElementById('rzp-button1');
+    if (rzpButton) {
+        rzpButton.onclick = function(e){
+            rzp1.open();
+            e.preventDefault();
+        };
+    }
+
+
+    
+</script>
+{% endblock %}

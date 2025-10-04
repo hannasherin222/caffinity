@@ -1,0 +1,55 @@
+{% extends "master.html" %}
+
+
+
+
+{% block content %}
+
+<div class="container mt-5  w-50 p-5" >
+    <div class="card mb-3" style=" width: 750px;">
+      <form class="row g-3 " action="addcartform/" method="POST">
+
+        {% csrf_token %}
+
+       <div class="row g-0">
+         <div class="col-md-4">
+           <!-- <img src=" https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" class="img-fluid rounded-start h-100" alt=""> -->
+         </div>
+         <div class="col-md-8">
+           <div class="card-body">
+   
+             <h3 class="card-title">Name : {{ w.name}}</h5>
+             <hr>
+             <h4 class="card-title">Price : {{ w.price}}</h3>
+             <hr>
+             <h5 class="card-title">Size : {{ w.quantity}}</h4>
+           </div>
+
+        <div class="container ">
+           <form class="row g-3">
+            <div class="col-md-6">
+              <label for="quantity" class="form-label mi" >Quantity</label>
+              <input type="number" min="1" max="50" class="form-control" id="quantity" name="quantity">
+            </div>
+            <div class="col-md-6">
+              <label for="usname" class="form-label">User Name</label>
+              <input type="text" class="form-control" id="usname" name="usname">
+            </div>
+            </form>
+        </div>
+
+           <hr class="hr">
+           <div class="card-body d-flex justify-content-between"> 
+             
+             <input class=" btn btn-primary" type="submit">
+             <a class="btn btn-success" href="/">Cancel</a> 
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+   </form>
+   </div>
+
+
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends "master.html" %}
+
+
+
+{% block content %}
+
+
+ <div class="container">
+    <div class="row row-cols-2 row-cols-md-4 g-4 mt-3">
+
+
+
+          <table class="table table-light table-striped">  
+                <tr>
+                    <th>cartno</th>
+                    <th>Product  id</th>
+                    <th>User</th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th></th>
+                    
+                </tr>
+        {% for v in cart %}     
+        
+        
+        
+          <tr>
+                <td class="card-title">{{forloop.counter}}</td>
+                
+                <td class="card-title">{{v.productid}}</td>
+                <td class="card-text"> {{v.user}}</td>
+                <td class="card-text"> {{v.productname}}</td>
+                <td class="card-text"> {{v.proprice}}</td>
+                <td class="card-text"> {{v.productquantity}}</td>
+                <td class="card-text tot"> {{v.total}}</td>
+                <td><a class="btn btn-danger" href="/{{v.id}}/cdelete/">Delete</a></td>
+                
+            </tr> 
+
+        {% endfor %}
+ <tr>
+    <td></td>
+           <td></td>
+         <td></td>
+
+            <td></td>
+           <td></td>
+            <td>Total Amount</td>
+                <td id="totalvalue"></td>
+            <td></td>
+
+                    
+                </tr>
+
+        <script>
+
+
+            let to=0;
+            const tot=document.getElementsByClassName('tot');
+            
+            for (let i of tot){
+                to=to+Number(i.innerHTML)
+
+            }
+  
+
+document.getElementById("totalvalue").innerHTML=to;
+
+        </script>
+
+
+            </table>
+            <div class="container">
+            <a class="btn btn-info" href="/buynow/">Buy Now </a>
+            <a class="btn btn-success" href="/product/">Cancel</a>
+            </div>
+      </div>
+</div>      
+      
+
+
+
+{% endblock %}
+
+
+  
